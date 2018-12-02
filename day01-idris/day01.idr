@@ -2,17 +2,17 @@ module Main
 
 import Data.String
 
-data BinaryTree a = Leaf
-                  | Node (BinaryTree a) a (BinaryTree a)
+data BST a = Leaf
+           | Node (BST a) a (BST a)
 
-insert : Ord a => a -> BinaryTree a -> BinaryTree a
+insert : Ord a => a -> BST a -> BST a
 insert x Leaf = Node Leaf x Leaf
 insert x (Node l v r) =
   if (x < v)
   then Node (insert x l) v r
   else Node l v (insert x r)
 
-exists : Ord a => a -> BinaryTree a -> Bool
+exists : Ord a => a -> BST a -> Bool
 exists x Leaf = False
 exists x (Node l v r) =
   if (x == v)
@@ -29,7 +29,7 @@ firstRepeat (x :: xs) = firstRepeatAux 0 infF (insert 0 Leaf) where
   infF : Stream Integer
   infF = cycle (x :: xs)
 
-  firstRepeatAux : Integer -> Stream Integer -> BinaryTree Integer -> Integer
+  firstRepeatAux : Integer -> Stream Integer -> BST Integer -> Integer
   firstRepeatAux freq (x :: xs) visited =
     let nextFreq = freq + x in
     if (exists nextFreq visited)
