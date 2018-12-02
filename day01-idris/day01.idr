@@ -19,17 +19,6 @@ exists x (Node l v r) =
   then True
   else if (x < v) then exists x l else exists x r
 
-readLine : File -> IO String
-readLine f = do l <- fGetLine f
-                pure (either (\_ => "") (\x => x) l)
-
-readLines : File -> IO (List String)
-readLines f = readLinesAcc [] where
-  readLinesAcc : List String -> IO (List String)
-  readLinesAcc acc = if (not !(fEOF f))
-                     then readLinesAcc (!(readLine f) :: acc)
-                     else pure (reverse acc)
-
 toIntList : List String -> List Integer
 toIntList [] = []
 toIntList (x :: xs) = maybe (toIntList xs) (\x => x :: (toIntList xs)) (parseInteger x)
@@ -46,6 +35,17 @@ firstRepeat (x :: xs) = firstRepeatAux 0 infF (insert 0 Leaf) where
     if (exists nextFreq visited)
     then nextFreq
     else firstRepeatAux nextFreq xs (insert nextFreq visited)
+
+readLine : File -> IO String
+readLine f = do l <- fGetLine f
+                pure (either (\_ => "") (\x => x) l)
+
+readLines : File -> IO (List String)
+readLines f = readLinesAcc [] where
+  readLinesAcc : List String -> IO (List String)
+  readLinesAcc acc = if (not !(fEOF f))
+                     then readLinesAcc (!(readLine f) :: acc)
+                     else pure (reverse acc)
 
 main : IO ()
 main = case !(openFile "01.input" Read) of
