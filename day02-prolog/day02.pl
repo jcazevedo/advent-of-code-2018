@@ -21,8 +21,36 @@ count_exact([H|T], N, M) :-
     has_count(CM, N),
     count_exact(T, N, MM),
     M is MM + 1.
-count_exact([_|T], N, M) :-
+count_exact([H|T], N, M) :-
+    string_codes(H, L),
+    char_map(L, CM),
+    not(has_count(CM, N)),
     count_exact(T, N, M).
+
+repeated([], [], []).
+repeated([H|T1], [H|T2], [H|T]) :-
+    repeated(T1, T2, T).
+repeated([H1|T1], [H2|T2], T) :-
+    H1 \= H2,
+    repeated(T1, T2, T).
+
+words_as_char_lists([], []).
+words_as_char_lists([H|T], [CL|CLT]) :-
+    string_codes(H, CL),
+    words_as_char_lists(T, CLT).
+
+has_repeated_size(H, [H1|_], L, C) :-
+    repeated(H, H1, C),
+    length(C, L).
+has_repeated_size(H, [_|T], L, C) :-
+    has_repeated_size(H, T, L, C).
+
+get_common_letters([H|T], C) :-
+    length(H, L),
+    LL is L - 1,
+    has_repeated_size(H, T, LL, C).
+get_common_letters([_|T], C) :-
+    get_common_letters(T, C).
 
 check_char_and_read_rest(10, [], _) :- !.
 check_char_and_read_rest(32, [], _) :- !.
@@ -49,7 +77,12 @@ main :-
     read_lines(Str, Lines),
     count_exact(Lines, 2, E2),
     count_exact(Lines, 3, E3),
-    close(Str),
     RES1 is E2 * E3,
     write("Part 1: "),
-    writeln(RES1).
+    writeln(RES1),
+    words_as_char_lists(Lines, CLines),
+    get_common_letters(CLines, Common),
+    string_codes(Word, Common),
+    write("Part 2: "),
+    writeln(Word),
+    close(Str).
