@@ -1,23 +1,7 @@
 module Main
 
+import Data.SortedSet
 import Data.String
-
-data BST a = Leaf
-           | Node (BST a) a (BST a)
-
-insert : Ord a => a -> BST a -> BST a
-insert x Leaf = Node Leaf x Leaf
-insert x (Node l v r) =
-  if (x < v)
-  then Node (insert x l) v r
-  else Node l v (insert x r)
-
-exists : Ord a => a -> BST a -> Bool
-exists x Leaf = False
-exists x (Node l v r) =
-  if (x == v)
-  then True
-  else if (x < v) then exists x l else exists x r
 
 toIntList : List String -> List Integer
 toIntList [] = []
@@ -25,14 +9,14 @@ toIntList (x :: xs) = maybe (toIntList xs) (\x => x :: (toIntList xs)) (parseInt
 
 firstRepeat : List Integer -> Integer
 firstRepeat [] = 0
-firstRepeat (x :: xs) = firstRepeatAux 0 infF (insert 0 Leaf) where
+firstRepeat (x :: xs) = firstRepeatAux 0 infF (insert 0 empty) where
   infF : Stream Integer
   infF = cycle (x :: xs)
 
-  firstRepeatAux : Integer -> Stream Integer -> BST Integer -> Integer
+  firstRepeatAux : Integer -> Stream Integer -> SortedSet Integer -> Integer
   firstRepeatAux freq (x :: xs) visited =
     let nextFreq = freq + x in
-    if (exists nextFreq visited)
+    if (contains nextFreq visited)
     then nextFreq
     else firstRepeatAux nextFreq xs (insert nextFreq visited)
 

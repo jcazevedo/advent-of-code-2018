@@ -2,7 +2,7 @@
 
 case "$1" in
     Day01)
-        idris day01-idris/day01.idr -o day01 && ./day01
+        idris --package contrib day01-idris/day01.idr -o day01 && ./day01
         ;;
 
     Day02)
