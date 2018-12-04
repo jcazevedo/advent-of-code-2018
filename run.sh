@@ -9,6 +9,10 @@ case "$1" in
         swipl -q -t main day02-prolog/day02.pl
         ;;
 
+    Day03)
+        lua day03-lua/day03.lua
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
