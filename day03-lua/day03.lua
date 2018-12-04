@@ -6,6 +6,24 @@ function split(s, delimiter)
   return result
 end
 
+function area(r)
+  if next(r) == nil then
+    return 0
+  end
+  return r.w * r.h
+end
+
+function intersection(r1, r2)
+  if r1.i > r2.i + r2.w or r2.i > r1.i + r1.w or r2.j > r1.j + r1.h or r1.j > r2.j + r2.h then
+    return {}
+  end
+  local si = math.max(r1.i, r2.i)
+  local sj = math.max(r1.j, r2.j)
+  local ei = math.min(r1.i + r1.w, r2.i + r2.w)
+  local ej = math.min(r1.j + r1.h, r2.j + r2.h)
+  return {i = si, j = sj, w = ei - si, h = ej - sj}
+end
+
 local rectangles = {}
 
 for line in io.lines("03.input") do
@@ -112,4 +130,23 @@ for _, k in pairs(ii) do
   prev_x = k
 end
 
+local non_overlapping = "#"
+for i = 1, #rectangles do
+  local r1 = rectangles[i]
+  local good = true
+  for j = 1, #rectangles do
+    if i ~= j then
+      if area(intersection(r1, rectangles[j])) ~= 0 then
+        good = false
+        break
+      end
+    end
+  end
+  if good then
+    non_overlapping = r1.id
+    break
+  end
+end
+
 print("Part 1: " .. a)
+print("Part 2: " .. non_overlapping)
