@@ -36,20 +36,18 @@ end
 local iin = {}
 local iout = {}
 local iit = {}
-for i = 1, #rectangles do
-  if iin[rectangles[i].i] == nil then
-    iin[rectangles[i].i] = {}
-  end
+for _, r in pairs(rectangles) do
+  local rs = r.i
+  local re = r.i + r.w
 
-  if iout[rectangles[i].i + rectangles[i].w] == nil then
-    iout[rectangles[i].i + rectangles[i].w] = {}
-  end
+  if not iin[rs] then iin[rs] = {} end
+  if not iout[re] then iout[re] = {} end
 
-  table.insert(iin[rectangles[i].i], rectangles[i])
-  table.insert(iout[rectangles[i].i + rectangles[i].w], rectangles[i])
+  table.insert(iin[rs], r)
+  table.insert(iout[re], r)
 
-  iit[rectangles[i].i] = true
-  iit[rectangles[i].i + rectangles[i].w] = true
+  iit[rs] = true
+  iit[re] = true
 end
 
 local ii = {}
@@ -80,7 +78,7 @@ for _, k in pairs(ii) do
     prev_y = v
   end
 
-  if iin[k] ~= nil then
+  if iin[k] then
     for i = 1, #iin[k] do
       if jin[iin[k][i].j] == nil then
         jin[iin[k][i].j] = {}
@@ -98,7 +96,7 @@ for _, k in pairs(ii) do
     end
   end
 
-  if iout[k] ~= nil then
+  if iout[k] then
     for i = 1, #iout[k] do
       local to_remove = iout[k][i]
       for kk, v in pairs(jin[iout[k][i].j]) do
@@ -131,12 +129,11 @@ for _, k in pairs(ii) do
 end
 
 local non_overlapping = "#"
-for i = 1, #rectangles do
-  local r1 = rectangles[i]
+for _, r1 in pairs(rectangles) do
   local good = true
-  for j = 1, #rectangles do
-    if i ~= j then
-      if area(intersection(r1, rectangles[j])) ~= 0 then
+  for _, r2 in pairs(rectangles) do
+    if r1.id ~= r2.id then
+      if area(intersection(r1, r2)) ~= 0 then
         good = false
         break
       end
