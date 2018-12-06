@@ -22,6 +22,17 @@ string react(string p) {
   return react(next);
 }
 
+string filter(char c, string p) {
+  string res = "";
+  int L = p.size();
+  for (int i = 0; i < L; i++) {
+    if (p[i] != c && (p[i] - c) != 32) {
+      res += p[i];
+    }
+  }
+  return res;
+}
+
 int main() {
   ifstream fin("05.input");
   string polymer;
@@ -29,5 +40,12 @@ int main() {
   fin.close();
   string final_polymer = react(polymer);
   cout << "Part 1: " << final_polymer.size() << endl;
+  string best = polymer;
+  for (char c = 'A'; c <= 'Z'; c++) {
+    string next = react(filter(c, polymer));
+    if (next.size() < best.size())
+      best = next;
+  }
+  cout << "Part 2: " << best.size() << endl;
   return 0;
 }
