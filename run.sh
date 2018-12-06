@@ -21,6 +21,10 @@ case "$1" in
         g++ -Wall day05-c++/day05.cpp -o day05 && ./day05
         ;;
 
+    Day06)
+        ruby day06-ruby/day06.rb
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
