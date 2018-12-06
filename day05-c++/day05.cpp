@@ -1,36 +1,25 @@
+#include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <fstream>
 #include <iostream>
+#include <stack>
 #include <string>
 
 using namespace std;
 
-string react(string p) {
-  int L = p.size();
-  string next = "";
-  int i = 0;
-  while (i < L) {
-    if (i + 1 == L || abs(p[i] - p[i + 1]) != 32) {
-      next += p[i];
-      i++;
-    } else {
-      i += 2;
-    }
-  }
-  if (next.size() - L == 0)
-    return p;
-  return react(next);
-}
-
-string filter(char c, string p) {
-  string res = "";
+int react(string p, char ignore = '_') {
+  stack<char> s;
   int L = p.size();
   for (int i = 0; i < L; i++) {
-    if (p[i] != c && (p[i] - c) != 32) {
-      res += p[i];
-    }
+    if (p[i] == ignore || p[i] - 32 == ignore)
+      continue;
+    if (s.empty() || abs(s.top() - p[i]) != 32)
+      s.push(p[i]);
+    else
+      s.pop();
   }
-  return res;
+  return s.size();
 }
 
 int main() {
@@ -38,14 +27,10 @@ int main() {
   string polymer;
   fin >> polymer;
   fin.close();
-  string final_polymer = react(polymer);
-  cout << "Part 1: " << final_polymer.size() << endl;
-  string best = polymer;
-  for (char c = 'A'; c <= 'Z'; c++) {
-    string next = react(filter(c, polymer));
-    if (next.size() < best.size())
-      best = next;
-  }
-  cout << "Part 2: " << best.size() << endl;
+  cout << "Part 1: " << react(polymer) << endl;
+  int best = polymer.size();
+  for (char c = 'A'; c <= 'Z'; c++)
+    best = min(best, react(polymer, c));
+  cout << "Part 2: " << best << endl;
   return 0;
 }
