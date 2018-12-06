@@ -13,6 +13,10 @@ case "$1" in
         lua day03-lua/day03.lua
         ;;
 
+    Day04)
+        rustc day04-rust/day04.rs && ./day04
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
