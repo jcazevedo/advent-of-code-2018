@@ -17,6 +17,10 @@ case "$1" in
         rustc day04-rust/day04.rs && ./day04
         ;;
 
+    Day05)
+        g++ -Wall day05-c++/day05.cpp -o day05 && ./day05
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
