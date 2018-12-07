@@ -68,10 +68,8 @@ function res = part2 (nn1, nn2, n_workers)
     next = "";
 
     for [degree, node] = in_degree
-      if (degree == 0)
-        if (size(next)(2) == 0 || min_start_time.(node) < min_start_time.(next))
-          next = node;
-        endif
+      if (degree == 0 && (size(next)(2) == 0 || min_start_time.(node) < min_start_time.(next)))
+        next = node;
       endif
     endfor
 
