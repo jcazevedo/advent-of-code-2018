@@ -25,6 +25,10 @@ case "$1" in
         ruby day06-ruby/day06.rb
         ;;
 
+    Day07)
+        octave day07-octave/day07.m
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
