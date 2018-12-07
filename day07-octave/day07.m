@@ -32,7 +32,7 @@ function res = part1 (nn1, nn2)
     next = "";
 
     for [degree, node] = in_degree
-      if (degree == 0 && (size(next) == 0 || node < next))
+      if (degree == 0 && (size(next)(2) == 0 || node < next))
         next = node;
       endif
     endfor
