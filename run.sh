@@ -29,6 +29,10 @@ case "$1" in
         octave day07-octave/day07.m
         ;;
 
+    Day08)
+        python day08-python/day08.py
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
