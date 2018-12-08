@@ -26,7 +26,7 @@ def value_of_root(tree):
             c = tree[n_i + j]
             if n_nodes == 0:
                 value += c
-            elif (c < len(child_values)):
+            elif c < len(child_values):
                 value += child_values[c]
         return [n_i + n_metadata, value]
     return aux(tree, 0)[1]
