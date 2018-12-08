@@ -4,7 +4,7 @@ def metadata_sum(tree):
         n_metadata = tree[i + 1]
         metadata_sum = 0
         n_i = i + 2
-        for j in range(0, n_nodes):
+        for _ in range(0, n_nodes):
             [n_i, c_sum] = aux(tree, n_i)
             metadata_sum += c_sum
         for j in range(0, n_metadata):
@@ -18,7 +18,7 @@ def value_of_root(tree):
         n_metadata = tree[i + 1]
         child_values = [0]
         n_i = i + 2
-        for j in range(0, n_nodes):
+        for _ in range(0, n_nodes):
             [n_i, c_value] = aux(tree, n_i)
             child_values.append(c_value)
         value = 0
