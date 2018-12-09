@@ -34,7 +34,7 @@ case "$1" in
         ;;
 
     Day09)
-        escript day09-erlang/day09.erl
+        erlc day09-erlang/day09.erl && erl -noshell -s day09 main -s init stop
         ;;
 
     *)
