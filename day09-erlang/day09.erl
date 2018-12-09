@@ -67,4 +67,5 @@ main(_) ->
     Splits = string:split(read_line("09.input"), " ", all),
     Players = list_to_integer(lists:nth(1, Splits)),
     Marbles = list_to_integer(lists:nth(7, Splits)),
-    io:fwrite("Part 1: ~w~n", [high_score(Players, Marbles)]).
+    io:fwrite("Part 1: ~w~n", [high_score(Players, Marbles)]),
+    io:fwrite("Part 2: ~w~n", [high_score(Players, Marbles * 100)]).
