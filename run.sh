@@ -33,6 +33,10 @@ case "$1" in
         python day08-python/day08.py
         ;;
 
+    Day09)
+        escript day09-erlang/day09.erl
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
