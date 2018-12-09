@@ -46,26 +46,23 @@ remove_marble(Diff, CurrentMarble) ->
 high_score(_, Marbles, Scores, _, NextMarble, _) when NextMarble =:= Marbles + 1 ->
     lists:max(maps:values(Scores));
 high_score(Players, Marbles, Scores, CurrentMarble, NextMarble, CurrentPlayer) ->
-    if
-        NextMarble rem 23 =:= 0 ->
-            CurrentPlayerScore = maps:get(CurrentPlayer, Scores, 0),
-            {RemovedMarble, NewNext} = remove_marble(-7, CurrentMarble),
-            NextScores = maps:put(CurrentPlayer, CurrentPlayerScore + RemovedMarble + NextMarble, Scores),
-            high_score(Players,
-                       Marbles,
-                       NextScores,
-                       NewNext,
-                       NextMarble + 1,
-                       (CurrentPlayer + 1) rem Players);
-        true ->
-            place_marble(1, CurrentMarble, NextMarble),
-            high_score(Players,
-                       Marbles,
-                       Scores,
-                       NextMarble,
-                       NextMarble + 1,
-                       (CurrentPlayer + 1) rem Players)
-    end.
+    {NewNextScores, NewNextMarble} =
+        if
+            NextMarble rem 23 =:= 0 ->
+                CurrentPlayerScore = maps:get(CurrentPlayer, Scores, 0),
+                {RemovedMarble, NewNext} = remove_marble(-7, CurrentMarble),
+                NextScores = maps:put(CurrentPlayer, CurrentPlayerScore + RemovedMarble + NextMarble, Scores),
+                {NextScores, NewNext};
+            true ->
+                place_marble(1, CurrentMarble, NextMarble),
+                {Scores, NextMarble}
+        end,
+    high_score(Players,
+               Marbles,
+               NewNextScores,
+               NewNextMarble,
+               NextMarble + 1,
+               (CurrentPlayer + 1) rem Players).
 
 high_score(Players, Marbles) ->
     ets:delete_all_objects(next),
