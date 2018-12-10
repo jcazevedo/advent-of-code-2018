@@ -37,6 +37,10 @@ case "$1" in
         erlc day09-erlang/day09.erl && erl -noshell -s day09 main -s init stop
         ;;
 
+    Day10)
+        Rscript day10-r/day10.R
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
