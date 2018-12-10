@@ -25,7 +25,7 @@ r = 1000000
 while (l < r) {
   m = (l + r) %/% 2
   if (good(lights, m)) {
-    r = m - 1
+    r = m
   } else {
     l = m + 1
   }
