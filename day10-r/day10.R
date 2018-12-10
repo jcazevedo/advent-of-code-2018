@@ -14,33 +14,42 @@ rotate = function(x) t(apply(x, 2, rev))
 
 lights = readInput("10.input")
 
-seconds = 0
-found = FALSE
-keepGoing = TRUE
-while (keepGoing) {
-  current = data.frame(
-    x = lights$x + lights$vx * seconds,
-    y = lights$y + lights$vy * seconds)
-  minX = min(current$x)
-  maxX = max(current$x)
-  minY = min(current$y)
-  maxY = max(current$y)
-  H = maxY - minY + 1
-  W = maxX - minX + 1
-  if (W <= nrow(current)) {
-    found = TRUE
-    m = matrix(0, nrow = H, ncol = W)
-    for (row in 1:nrow(current)) {
-      x = current[row, "x"] - minX + 1
-      y = current[row, "y"] - minY + 1
-      m[y, x] = 1
-    }
-    image(rotate(m), axes = FALSE)
-    filename = paste(seconds, ".png", sep="")
-    png(filename = filename)
-  }
-  if (found && W > nrow(current)) {
-    keepGoing = FALSE
-  }
-  seconds = seconds + 1
+good = function(lights, seconds) {
+  x = lights$x + lights$vx * seconds
+  xl = max(x) - min(x)
+  nx = lights$x + lights$vx * (seconds + 1)
+  nxl = max(nx) - min(nx)
+  return(nxl > xl)
 }
+
+l = 0
+r = 1000000
+while (l < r) {
+  m = (l + r) %/% 2
+  if (good(lights, m)) {
+    r = m - 1
+  } else {
+    l = m + 1
+  }
+}
+
+current = data.frame(
+  x = lights$x + lights$vx * l,
+  y = lights$y + lights$vy * l)
+minX = min(current$x)
+maxX = max(current$x)
+minY = min(current$y)
+maxY = max(current$y)
+H = maxY - minY + 1
+W = maxX - minX + 1
+m = matrix(' ', nrow = H, ncol = W)
+for (row in 1:nrow(current)) {
+  x = current[row, "x"] - minX + 1
+  y = current[row, "y"] - minY + 1
+  m[y, x] = '#'
+}
+cat("Part 1:\n")
+for (i in 1:H) {
+  cat(paste(paste(m[i,], collapse=""), "\n", sep=""))
+}
+cat(paste("Part 2: ", l, "\n", sep=""))
