@@ -10,8 +10,6 @@ readInput = function(filename) {
   return(lights)
 }
 
-rotate = function(x) t(apply(x, 2, rev))
-
 lights = readInput("10.input")
 
 good = function(lights, seconds) {
