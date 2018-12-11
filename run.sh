@@ -41,6 +41,10 @@ case "$1" in
         Rscript day10-r/day10.R
         ;;
 
+    Day11)
+        ocaml day11-ocaml/day11.ml
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
