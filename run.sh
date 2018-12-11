@@ -42,7 +42,7 @@ case "$1" in
         ;;
 
     Day11)
-        ocaml day11-ocaml/day11.ml
+        ocamlopt -o day11 day11-ocaml/day11.ml && ./day11
         ;;
 
     *)
