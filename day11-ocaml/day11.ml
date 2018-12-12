@@ -80,7 +80,7 @@ let part_2 serial =
     done;
   done;
   let (x, y, s) = !best in
-  (x + 1, y + 1, s)
+  (x + 1, y + 1, s);;
 
 let () =
   let serial = get_serial "11.input" in
