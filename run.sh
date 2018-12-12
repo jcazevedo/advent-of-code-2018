@@ -45,6 +45,10 @@ case "$1" in
         ocamlopt -o day11 day11-ocaml/day11.ml && ./day11
         ;;
 
+    Day12)
+        dart day12-dart/day12.dart
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
