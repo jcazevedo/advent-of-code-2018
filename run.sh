@@ -53,6 +53,10 @@ case "$1" in
         php day13-php/day13.php
         ;;
 
+    Day14)
+        elixir day14-elixir/day14.exs
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
