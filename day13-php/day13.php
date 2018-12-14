@@ -11,16 +11,16 @@ $carts = array();
 for ($i = 0; $i < count($lines); ++$i) {
     for ($j = 0; $j < strlen($lines[$i]); ++$j) {
         if ($lines[$i][$j] == '^') {
-            $carts[] = array('i' => $i, 'j' => $j, 'd' => 0, 'n' => -1);
+            $carts[] = array('i' => $i, 'j' => $j, 'd' => 0, 'n' => -1, 'g' => true);
             $lines[$i][$j] = '|';
         } else if ($lines[$i][$j] == 'v') {
-            $carts[] = array('i' => $i, 'j' => $j, 'd' => 2, 'n' => -1);
+            $carts[] = array('i' => $i, 'j' => $j, 'd' => 2, 'n' => -1, 'g' => true);
             $lines[$i][$j] = '|';
         } else if ($lines[$i][$j] == '<') {
-            $carts[] = array('i' => $i, 'j' => $j, 'd' => 3, 'n' => -1);
+            $carts[] = array('i' => $i, 'j' => $j, 'd' => 3, 'n' => -1, 'g' => true);
             $lines[$i][$j] = '-';
         } else if ($lines[$i][$j] == '>') {
-            $carts[] = array('i' => $i, 'j' => $j, 'd' => 1, 'n' => -1);
+            $carts[] = array('i' => $i, 'j' => $j, 'd' => 1, 'n' => -1, 'g' => true);
             $lines[$i][$j] = '-';
         }
     }
@@ -36,31 +36,38 @@ function cart_comparison($cart1, $cart2) {
 
 function has_collision($cart_i, $carts) {
     for ($i = 0; $i < count($carts); ++$i) {
-        if ($i == $cart_i)
+        if ($i == $cart_i || !$carts[$i]['g'])
             continue;
         if (cart_comparison($carts[$i], $carts[$cart_i]) == 0)
-            return true;
+            return $i;
     }
-    return false;
+    return -1;
 }
 
 $ddiff = array(array(-1, 0), array(0, 1), array(1, 0), array(0, -1));
 
 $ci = -1;
 $cj = -1;
-$keep_going = true;
-while ($keep_going) {
+$good_carts = count($carts);
+while ($good_carts > 1) {
     usort($carts, "cart_comparison");
     for ($i = 0; $i < count($carts); ++$i) {
+        if (!$carts[$i]['g'])
+            continue;
         $carts[$i]['i'] += $ddiff[$carts[$i]['d']][0];
         $carts[$i]['j'] += $ddiff[$carts[$i]['d']][1];
         $ni = $carts[$i]['i'];
         $nj = $carts[$i]['j'];
-        if (has_collision($i, $carts)) {
-            $ci = $ni;
-            $cj = $nj;
-            $keep_going = false;
-            break;
+        $collision = has_collision($i, $carts);
+        if ($collision != -1) {
+            if ($ci == -1) {
+                $ci = $ni;
+                $cj = $nj;
+            }
+            $carts[$i]['g'] = false;
+            $carts[$collision]['g'] = false;
+            $good_carts -= 2;
+            continue;
         }
         if ($lines[$ni][$nj] == '+') {
             $carts[$i]['d'] = ($carts[$i]['d'] + 4 + $carts[$i]['n']) % 4;
@@ -87,6 +94,17 @@ while ($keep_going) {
     }
 }
 
+$fi = -1;
+$fj = -1;
+for ($i = 0; $i < count($carts); ++$i) {
+    if (!$carts[$i]['g'])
+        continue;
+    $fi = $carts[$i]['i'];
+    $fj = $carts[$i]['j'];
+    break;
+}
+
 echo("Part 1: ".$cj.",".$ci."\n");
+echo("Part 2: ".$fj.",".$fi."\n");
 
 ?>
