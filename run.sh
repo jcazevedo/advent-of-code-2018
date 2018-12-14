@@ -49,6 +49,10 @@ case "$1" in
         dart day12-dart/day12.dart
         ;;
 
+    Day13)
+        php day13-php/day13.php
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
