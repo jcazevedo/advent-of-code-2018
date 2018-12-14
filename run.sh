@@ -54,7 +54,7 @@ case "$1" in
         ;;
 
     Day14)
-        elixir day14-elixir/day14.exs
+        elixirc day14-elixir/day14.exs
         ;;
 
     *)
