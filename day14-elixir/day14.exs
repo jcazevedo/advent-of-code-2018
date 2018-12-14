@@ -30,6 +30,33 @@ defmodule Day14 do
       score_after(n, r, step state)
     end
   end
+
+  def take_values(i, j, recipes) do
+    if i > j do []
+    else [recipes[i] | take_values(i + 1, j, recipes)]
+    end
+  end
+
+  def recipes_before(n, state, start \\ 0) do
+    recipes = elem(state, 0)
+    nl = integer_to_list n
+    lnl = length nl
+    target = if (map_size(recipes) - lnl >= start) do
+      Enum.find(start..(map_size(recipes) - lnl), -1, fn x ->
+        list_to_integer(take_values(x, x + lnl - 1, recipes)) == n
+      end)
+    else
+      -1
+    end
+    if target != -1 do
+      target
+    else
+      recipes_before(
+        n,
+        step(state),
+        if (map_size(recipes) - lnl < start) do start else map_size(recipes) - lnl + 1 end)
+    end
+  end
 end
 
 {:ok, contents} = File.read("14.input")
@@ -37,3 +64,4 @@ end
 start_state = {%{0 => 3, 1 => 7}, [0, 1]}
 IO.puts "Part 1: " <> String.pad_leading(
   Integer.to_string(Day14.score_after(10, n_recipes, start_state)), 10, "0")
+IO.puts "Part 2: " <> Integer.to_string(Day14.recipes_before(n_recipes, start_state))
