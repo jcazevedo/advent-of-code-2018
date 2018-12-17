@@ -154,25 +154,6 @@ class State
       rounds = rounds + 1
     end
 
-  fun print(env: Env)? =>
-    let new_grid = Array[String ref]
-    for line in grid.values() do
-      new_grid.push(line.clone())
-    end
-    for unit in units.values() do
-      if unit.hp <= 0 then
-        continue
-      end
-      if unit.t is Goblin then
-        new_grid(unit.i.usize())?(unit.j.usize())? = 'G'
-      elseif unit.t is Elf then
-        new_grid(unit.i.usize())?(unit.j.usize())? = 'E'
-      end
-    end
-    for line in new_grid.values() do
-      env.out.print(line.string())
-    end
-
 actor Main
   new create(env: Env) =>
     try
@@ -180,19 +161,21 @@ actor Main
       let file: File ref = recover File(FilePath(auth, "15.input")?) end
       let lines = file.lines()
       let grid = Array[String ref]
-      let units = Array[Unit ref]
+      let original_units = Array[Unit ref]
       var i: I32 = 0
+      var n_elves: I32 = 0
       for line in lines do
         let original_line: String = consume line
         var j: I32 = 0
         let final_line: String ref = String
         for ch in original_line.values() do
           if ch == 'G' then
-            units.push(Unit(i, j, Goblin, 3, 200))
+            original_units.push(Unit(i, j, Goblin, 3, 200))
             final_line.push('.')
           elseif ch == 'E' then
-            units.push(Unit(i, j, Elf, 3, 200))
+            original_units.push(Unit(i, j, Elf, 3, 200))
             final_line.push('.')
+            n_elves = n_elves + 1
           else
             final_line.push(ch)
           end
@@ -201,9 +184,40 @@ actor Main
         grid.push(final_line)
         i = i + 1
       end
+      let units = Array[Unit ref]
+      for unit in original_units.values() do
+        units.push(unit.clone())
+      end
       let state = State(units, grid)
       while not(state.done) do
         state.step(env)?
       end
       env.out.print("Part 1: " + (state.rounds * state.remaining_hit_points()).string())
+
+      var min_power: I32 = 4
+      var outcome = while true do
+        let new_units = Array[Unit ref]
+        for unit in original_units.values() do
+          let new_unit = unit.clone()
+          if new_unit.t is Elf then
+            new_unit.ap = min_power
+          end
+          new_units.push(new_unit)
+        end
+        let new_state = State(new_units, grid)
+        while not(new_state.done) do
+          new_state.step(env)?
+        end
+        var rem_elves: I32 = 0
+        for unit in new_state.units.values() do
+          if (unit.t is Elf) and (unit.hp > 0) then
+            rem_elves = rem_elves + 1
+          end
+        end
+        if rem_elves == n_elves then
+          break (new_state.rounds * new_state.remaining_hit_points())
+        end
+        min_power = min_power + 1
+      end
+      env.out.print("Part 2: " + outcome.string())
     end
