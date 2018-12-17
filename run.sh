@@ -57,6 +57,10 @@ case "$1" in
         elixirc day14-elixir/day14.exs
         ;;
 
+    Day15)
+        ponyc day15-pony -b day15 && ./day15
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
