@@ -61,6 +61,10 @@ case "$1" in
         ponyc day15-pony -b day15 && ./day15
         ;;
 
+    Day16)
+        scala day16-scala/Day16.scala
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
