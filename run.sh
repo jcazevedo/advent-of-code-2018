@@ -62,7 +62,7 @@ case "$1" in
         ;;
 
     Day16)
-        scala day16-scala/Day16.scala
+        scala day16-scala/day16.scala
         ;;
 
     *)
