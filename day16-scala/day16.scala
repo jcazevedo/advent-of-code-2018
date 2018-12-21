@@ -1,3 +1,5 @@
+import scala.collection.mutable
+
 object Day16 extends App {
   sealed trait OpCode {
     def name: String
@@ -126,19 +128,40 @@ object Day16 extends App {
     (t(0), t(1), t(2), t(3))
   }
 
-  def cleanup(mappings: Map[Int, Set[String]]): Map[Int, Set[String]] = {
-    val single = mappings.filter(_._2.size == 1).flatMap(_._2).toSet
-    if (single.size == mappings.size) mappings
-    else cleanup(mappings.mapValues(v => if (v.size > 1) v -- single else v))
+  def hopcroftKarp(mappings: Map[Int, Set[String]]): Map[Int, String] = {
+    val visited = mutable.Set[String]()
+    val left = mutable.Map[Int, String]()
+    val right = mutable.Map[String, Int]()
+
+    def aux(i: Int): Boolean = {
+      mappings(i).foreach { j =>
+        if (!visited.contains(j)) {
+          visited.add(j)
+          if (!right.contains(j) || aux(right(j))) {
+            left(i) = j
+            right(j) = i
+            return true
+          }
+        }
+      }
+      false
+    }
+
+    mappings.foreach { case (i, j) =>
+      visited.clear()
+      aux(i)
+    }
+
+    left.toMap
   }
 
-  val mappings = cleanup(examples.foldLeft(Map.empty[Int, Set[String]]) { case (m, (b, ops, a)) =>
+  val mappings = hopcroftKarp(examples.foldLeft(Map.empty[Int, Set[String]]) { case (m, (b, ops, a)) =>
     val validOpCodes = OpCode.all(ops(1), ops(2), ops(3)).filter(oc => oc(b) == a).map(_.name).toSet
     m.get(ops(0)) match {
       case Some(opcodes) => m.updated(ops(0), opcodes & validOpCodes)
       case None => m + (ops(0) -> validOpCodes)
     }
-  }).mapValues(_.head)
+  })
 
   val registers = program.foldLeft(Vector(0, 0, 0, 0)) { case (reg, (o, a, b, c)) =>
     OpCode.apply(mappings(o), a, b, c).fold(reg)(_.apply(reg))
