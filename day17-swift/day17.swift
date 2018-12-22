@@ -19,7 +19,7 @@ func createVein(str: String) -> Vein {
     return Vein(x1: v21!, x2: v22!, y1: v1!, y2: v1!)
 }
 
-func waterReach(veins: [Vein], x: Int, y: Int) -> Int {
+func waterReach(veins: [Vein], x: Int, y: Int) -> (Int, Int) {
     let minY = veins.min { a, b in a.y1 < b.y1 }!.y1
     let maxY = veins.max { a, b in a.y2 < b.y2 }!.y2
     let minX = veins.min { a, b in a.x1 < b.x1 }!.x1 - 1
@@ -97,7 +97,18 @@ func waterReach(veins: [Vein], x: Int, y: Int) -> Int {
         return s
     }
 
-    return drop(x: max(x, minX) - minX, y: max(y, minY) - minY)
+    let reach = drop(x: max(x, minX) - minX, y: max(y, minY) - minY)
+
+    var remaining = 0
+    for i in 0..<H {
+        for j in 0..<W {
+            if (grid[i][j] == "~") {
+                remaining += 1
+            }
+        }
+    }
+
+    return (reach, remaining)
 }
 
 let filename = "17.input"
@@ -107,4 +118,7 @@ let contents = try! String(contentsOfFile: url.path)
 let lines = contents.split { $0 == "\n" }.map(String.init)
 let veins = lines.map(createVein)
 
-print("Part 1: \(waterReach(veins: veins, x: 500, y: 0))")
+let (part1, part2) = waterReach(veins: veins, x: 500, y: 0)
+
+print("Part 1: \(part1)")
+print("Part 2: \(part2)")
