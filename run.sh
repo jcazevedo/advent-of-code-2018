@@ -65,6 +65,10 @@ case "$1" in
         scala day16-scala/day16.scala
         ;;
 
+    Day17)
+        swift day17-swift/day17.swift
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
