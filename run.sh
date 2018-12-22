@@ -66,7 +66,7 @@ case "$1" in
         ;;
 
     Day17)
-        swift day17-swift/day17.swift
+        swiftc -o day17 day17-swift/day17.swift && ./day17
         ;;
 
     *)
