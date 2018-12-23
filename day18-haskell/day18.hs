@@ -1,5 +1,5 @@
-import Data.Maybe
 import Data.List
+import Data.Maybe
 
 directions = [(-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1)]
 
