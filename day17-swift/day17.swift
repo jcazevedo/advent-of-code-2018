@@ -27,6 +27,7 @@ func waterReach(veins: [Vein], x: Int, y: Int) -> (Int, Int) {
     let H = maxY - minY + 1
     let W = maxX - minX + 1
     var grid = Array(repeating: Array(repeating: ".", count: W), count: H)
+    var drops = Array(repeating: Array(repeating: false, count: W), count: H)
 
     func fill(vein: Vein) {
         for y in vein.y1...vein.y2 {
@@ -69,7 +70,10 @@ func waterReach(veins: [Vein], x: Int, y: Int) -> (Int, Int) {
                 }
                 grid[i][lj] = "|"
                 hasDrop = true
-                s += drop(x: lj, y: i + 1)
+                if (!drops[i + 1][lj]) {
+                    drops[i + 1][lj] = true
+                    s += drop(x: lj, y: i + 1)
+                }
             }
             var rj = x
             while (rj >= 0 && (grid[i][rj] == "." || grid[i][rj] == "|") && (grid[i + 1][rj] == "#" || grid[i + 1][rj] == "~")) {
@@ -85,7 +89,10 @@ func waterReach(veins: [Vein], x: Int, y: Int) -> (Int, Int) {
                 }
                 grid[i][rj] = "|"
                 hasDrop = true
-                s += drop(x: rj, y: i + 1)
+                if (!drops[i + 1][rj]) {
+                    drops[i + 1][rj] = true
+                    s += drop(x: rj, y: i + 1)
+                }
             }
             if (!hasDrop) {
                 for j in (lj + 1)...(rj - 1) {
