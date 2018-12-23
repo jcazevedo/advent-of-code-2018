@@ -69,6 +69,10 @@ case "$1" in
         swiftc -o day17 day17-swift/day17.swift && ./day17
         ;;
 
+    Day18)
+        ghc -o day18 day18-haskell/day18.hs && ./day18
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
