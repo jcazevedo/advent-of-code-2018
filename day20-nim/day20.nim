@@ -46,6 +46,7 @@ for ch in directions:
 
 var queue = initQueue[(int, int)]()
 var bestDist = 0
+var farRooms = 0
 var dists = initTable[(int, int), int]()
 queue.add((0, 0))
 dists[(0, 0)] = 0
@@ -54,9 +55,12 @@ while queue.len > 0:
   var curr = queue.pop
   if dists[curr] > bestDist:
     bestDist = dists[curr]
+  if dists[curr] >= 1000:
+    farRooms += 1
   for neigh in graph[curr]:
     if not(dists.contains(neigh)) or dists[neigh] > dists[curr] + 1:
       dists[neigh] = dists[curr] + 1
       queue.add(neigh)
 
 echo fmt"Part 1: {bestDist}"
+echo fmt"Part 2: {farRooms}"
