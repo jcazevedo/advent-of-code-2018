@@ -17,23 +17,23 @@ proc addConnection(n1: (int, int), n2: (int, int)) =
   graph[n1].incl(n2)
 
 var s = initSet[(int, int)]()
-var e = initSet[(int, int)]()
-e.incl((0, 0))
+var tp = initSet[(int, int)]()
+tp.incl((0, 0))
 var p = initSet[(int, int)]()
 p.incl((0, 0))
 var stack: seq[(HashSet[(int, int)], HashSet[(int, int)])] = @[]
 
 for ch in directions:
   if ch == '|':
-    e = e + p
+    tp = tp + p
     p = s
   elif ch == '(':
-    stack.add((s, e))
+    stack.add((s, tp))
     s = p
-    e = initSet[(int, int)]()
+    tp = initSet[(int, int)]()
   elif ch == ')':
-    p = p + e
-    (s, e) = stack.pop()
+    p = p + tp
+    (s, tp) = stack.pop()
   else:
     var diff = dirs[ch]
     var np = initSet[(int, int)]()
