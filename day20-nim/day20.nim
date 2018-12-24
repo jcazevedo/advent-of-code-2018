@@ -6,7 +6,6 @@ import tables
 
 var directions = readFile("20.input").strip().multiReplace(("^", ""), ("$", ""))
 var graph = initTable[(int, int), HashSet[(int, int)]]()
-var cache = initTable[string, seq[string]]()
 var dirs = {'N': (-1, 0), 'E': (0, 1), 'S': (1, 0), 'W': (0, -1)}.toTable
 
 proc addConnection(n1: (int, int), n2: (int, int)) =
