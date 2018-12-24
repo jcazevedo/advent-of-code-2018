@@ -73,6 +73,10 @@ case "$1" in
         ghc -o day18 day18-haskell/day18.hs && ./day18
         ;;
 
+    Day19)
+        go build day19-go/day19.go && ./day19
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
