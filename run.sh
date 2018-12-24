@@ -77,6 +77,10 @@ case "$1" in
         go build day19-go/day19.go && ./day19
         ;;
 
+    Day20)
+        nim c -r -d:release --verbosity:0 day20-nim/day20.nim
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
