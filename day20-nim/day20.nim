@@ -4,8 +4,6 @@ import strformat
 import strutils
 import tables
 
-type Coord = tuple[i: int, j: int]
-
 var directions = readFile("20.input").strip().multiReplace(("^", ""), ("$", ""))
 var graph = initTable[(int, int), HashSet[(int, int)]]()
 var cache = initTable[string, seq[string]]()
