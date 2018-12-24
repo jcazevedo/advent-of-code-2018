@@ -169,13 +169,13 @@ func main() {
 	// reg[5] = 10551314
 	// while reg[2] <= reg[5] {
 	//   reg[4] = 1
-	//     while reg[4] <= reg[5] {
-	//       reg[1] = reg[2] * reg[4]
-	//       if reg[1] == reg[5] {
-	//         reg[0] = reg[0] + reg[2]
-	//       }
-	//       reg[4] = reg[4] + 1
+	//   while reg[4] <= reg[5] {
+	//     reg[1] = reg[2] * reg[4]
+	//     if reg[1] == reg[5] {
+	//       reg[0] = reg[0] + reg[2]
 	//     }
+	//     reg[4] = reg[4] + 1
+	//   }
 	//   reg[2] = reg[2] + 1
 	// }
 	var res = 0
