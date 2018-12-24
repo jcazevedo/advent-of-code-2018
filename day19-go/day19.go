@@ -161,4 +161,29 @@ func main() {
 	}
 	regStr := strconv.Itoa(reg[0])
 	fmt.Println("Part 1: " + regStr)
+	// With register 0 set to 1, the program is summing all the divisors of number 10551314.
+	// A simplified version of the program is the following:
+	//
+	// reg[0] = 0
+	// reg[2] = 1
+	// reg[5] = 10551314
+	// while reg[2] <= reg[5] {
+	//   reg[4] = 1
+	//     while reg[4] <= reg[5] {
+	//       reg[1] = reg[2] * reg[4]
+	//       if reg[1] == reg[5] {
+	//         reg[0] = reg[0] + reg[2]
+	//       }
+	//       reg[4] = reg[4] + 1
+	//     }
+	//   reg[2] = reg[2] + 1
+	// }
+	var res = 0
+	var n = 10551314
+	for i := 1; i <= n; i++ {
+		if n % i == 0 {
+			res += i
+		}
+	}
+	fmt.Println("Part 2: " + strconv.Itoa(res))
 }
