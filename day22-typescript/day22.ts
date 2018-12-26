@@ -79,10 +79,9 @@ class PriorityQueue<T> {
 let lines = fs.readFileSync("22.input", "utf8").split("\n");
 let depth = parseInt(lines[0].substring(7));
 let target = lines[1].substring(8).split(",").map(x => parseInt(x));
-let erosion = new Map<number, number>();
-let iConst = 100000;
+let erosion = new Map<string, number>();
 function getErosion(i: number, j: number) {
-    let v = i * iConst + j;
+    let v = [i, j].join(",");
     if (!erosion.has(v)) {
         if ((i == 0 && j == 0) || (i == target[1] && j == target[0])) {
             erosion.set(v, depth % 20183);
@@ -94,7 +93,7 @@ function getErosion(i: number, j: number) {
             erosion.set(v, (getErosion(i - 1, j) * getErosion(i, j - 1) + depth) % 20183);
         }
     }
-    return erosion.get(i * iConst + j);
+    return erosion.get(v);
 }
 
 function riskLevel() {
