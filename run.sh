@@ -89,6 +89,10 @@ case "$1" in
         tsc --lib es6 day22-typescript/day22.ts --outFile day22.js && node day22.js
         ;;
 
+    Day23)
+        perl day23-perl/day23.pl
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
