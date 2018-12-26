@@ -81,6 +81,10 @@ case "$1" in
         nim c -r -d:release --verbosity:0 day20-nim/day20.nim
         ;;
 
+    Day21)
+        kotlinc day21-kotlin/day21.kt && kotlin Day21Kt
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
