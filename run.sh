@@ -86,7 +86,7 @@ case "$1" in
         ;;
 
     Day22)
-        tsc day22-typescript/day22.ts --outFile day22.js && node day22.js
+        tsc --lib es6 day22-typescript/day22.ts --outFile day22.js && node day22.js
         ;;
 
     *)
