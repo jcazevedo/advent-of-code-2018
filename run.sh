@@ -85,6 +85,10 @@ case "$1" in
         kotlinc day21-kotlin/day21.kt && kotlin Day21Kt
         ;;
 
+    Day22)
+        tsc day22-typescript/day22.ts --outFile day22.js && node day22.js
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
