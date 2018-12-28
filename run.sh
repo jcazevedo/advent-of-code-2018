@@ -1,96 +1,100 @@
 #!/usr/bin/env bash
 
 case "$1" in
-    Day01)
+    01)
         idris --package contrib day01-idris/day01.idr -o day01 && ./day01
         ;;
 
-    Day02)
+    02)
         swipl -q -t main day02-prolog/day02.pl
         ;;
 
-    Day03)
+    03)
         lua day03-lua/day03.lua
         ;;
 
-    Day04)
+    04)
         rustc day04-rust/day04.rs && ./day04
         ;;
 
-    Day05)
+    05)
         g++ -Wall day05-c++/day05.cpp -o day05 && ./day05
         ;;
 
-    Day06)
+    06)
         ruby day06-ruby/day06.rb
         ;;
 
-    Day07)
+    07)
         octave day07-octave/day07.m
         ;;
 
-    Day08)
+    08)
         python day08-python/day08.py
         ;;
 
-    Day09)
+    09)
         erlc day09-erlang/day09.erl && erl -noshell -s day09 main -s init stop
         ;;
 
-    Day10)
+    10)
         Rscript day10-r/day10.R
         ;;
 
-    Day11)
+    11)
         ocamlopt -o day11 day11-ocaml/day11.ml && ./day11
         ;;
 
-    Day12)
+    12)
         dart day12-dart/day12.dart
         ;;
 
-    Day13)
+    13)
         php day13-php/day13.php
         ;;
 
-    Day14)
+    14)
         elixirc day14-elixir/day14.exs
         ;;
 
-    Day15)
+    15)
         ponyc day15-pony -b day15 && ./day15
         ;;
 
-    Day16)
+    16)
         scala day16-scala/day16.scala
         ;;
 
-    Day17)
+    17)
         swiftc -o day17 day17-swift/day17.swift && ./day17
         ;;
 
-    Day18)
+    18)
         ghc -o day18 day18-haskell/day18.hs && ./day18
         ;;
 
-    Day19)
+    19)
         go build day19-go/day19.go && ./day19
         ;;
 
-    Day20)
+    20)
         nim c -r -d:release --verbosity:0 day20-nim/day20.nim
         ;;
 
-    Day21)
+    21)
         kotlinc day21-kotlin/day21.kt && kotlin Day21Kt
         ;;
 
-    Day22)
+    22)
         tsc --lib es6 day22-typescript/day22.ts --outFile day22.js && node day22.js
         ;;
 
-    Day23)
+    23)
         perl day23-perl/day23.pl
+        ;;
+
+    24)
+        javac day24-java/day24.java -d . && java day24
         ;;
 
     *)
