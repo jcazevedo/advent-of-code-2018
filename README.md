@@ -9,7 +9,6 @@ different programming language.
 
 Some "rules" I set up for myself before starting solving the problems:
 
-- The language for each day is assigned before looking at the problem statement.
 - The languages to be used in each day are the following, in order: Idris,
   Prolog, Lua, Rust, C++, Ruby, Octave, Python, Erlang, R, OCaml, Dart, PHP,
   Elixir, Pony, Scala, Swift, Haskell, Go, Nim, Kotlin, TypeScript, Perl, Java
