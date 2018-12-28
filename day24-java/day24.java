@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class day24 {
-    public static class Group {
+    public static class Group implements Cloneable {
         public int id;
         public int nUnits;
         public int hitPoints;
@@ -24,6 +24,27 @@ public class day24 {
                 return 2 * effectivePower();
             return effectivePower();
         }
+
+        public Group clone() {
+            Group g = new Group();
+            g.id = id;
+            g.nUnits = nUnits;
+            g.hitPoints = hitPoints;
+            g.weaknesses = weaknesses;
+            g.immunities = immunities;
+            g.damageValue = damageValue;
+            g.damageType = damageType;
+            g.initiative = initiative;
+            g.type = type;
+            return g;
+        }
+    }
+
+    public static List<Group> cloneArmy(List<Group> army) {
+        List<Group> newArmy = new ArrayList<Group>();
+        for (Group g : army)
+            newArmy.add(g.clone());
+        return newArmy;
     }
 
     public static class EffectivePowerComparator implements Comparator<Group> {
@@ -41,22 +62,24 @@ public class day24 {
         }
     }
 
-    public static int unitsInWinningArmy(List<Group> immuneSystem, List<Group> infection) {
-        int immTotal = 0;
-        int infTotal = 0;
+    public static int unitsInArmy(List<Group> army) {
+        int total = 0;
+        for (Group g : army)
+            total += g.nUnits;
+        return total;
+    }
+
+    public static void fight(List<Group> immuneSystem, List<Group> infection) {
+        int s1 = unitsInArmy(immuneSystem);
+        int s2 = unitsInArmy(infection);
+        if (s1 == 0 || s2 == 0)
+            return;
+
         List<Group> allGroups = new ArrayList<Group>();
-        for (Group g : immuneSystem) {
-            immTotal += g.nUnits;
+        for (Group g : immuneSystem)
             allGroups.add(g);
-        }
-        for (Group g : infection) {
-            infTotal += g.nUnits;
+        for (Group g : infection)
             allGroups.add(g);
-        }
-        if (immTotal == 0)
-            return infTotal;
-        if (infTotal == 0)
-            return immTotal;
 
         Map<Group, Group> attacks = new HashMap<Group, Group>();
         Set<Group> beingAttacked = new HashSet<Group>();
@@ -108,7 +131,8 @@ public class day24 {
                 iter.remove();
         }
 
-        return unitsInWinningArmy(immuneSystem, infection);
+        if (unitsInArmy(immuneSystem) != s1 || unitsInArmy(infection) != s2)
+            fight(immuneSystem, infection);
     }
 
     public static void main(String[] args) {
@@ -167,7 +191,33 @@ public class day24 {
                 }
             }
 
-            System.out.println("Part 1: " + unitsInWinningArmy(immuneSystem, infection));
+            List<Group> g1 = cloneArmy(immuneSystem);
+            List<Group> g2 = cloneArmy(infection);
+
+            fight(g1, g2);
+            int part1 = Math.max(unitsInArmy(g1), unitsInArmy(g2));
+
+            int l = 0;
+            int r = 100000;
+            while (l < r) {
+                int m = (l + r) / 2;
+                List<Group> gg1 = cloneArmy(immuneSystem);
+                List<Group> gg2 = cloneArmy(infection);
+                for (Group g : gg1)
+                    g.damageValue += m;
+                fight(gg1, gg2);
+                if (unitsInArmy(gg2) == 0 && unitsInArmy(gg1) > 0)
+                    r = m;
+                else
+                    l = m + 1;
+            }
+
+            for (Group g : immuneSystem)
+                g.damageValue += l;
+            fight(immuneSystem, infection);
+
+            System.out.println("Part 1: " + part1);
+            System.out.println("Part 2: " + unitsInArmy(immuneSystem));
         } catch (Exception e) {
             e.printStackTrace();
         }
