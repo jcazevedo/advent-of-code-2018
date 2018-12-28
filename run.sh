@@ -1,39 +1,39 @@
 #!/usr/bin/env bash
 
 case "$1" in
-    01)
+    1)
         idris --package contrib day01-idris/day01.idr -o day01 && ./day01
         ;;
 
-    02)
+    2)
         swipl -q -t main day02-prolog/day02.pl
         ;;
 
-    03)
+    3)
         lua day03-lua/day03.lua
         ;;
 
-    04)
+    4)
         rustc day04-rust/day04.rs && ./day04
         ;;
 
-    05)
+    5)
         g++ -Wall day05-c++/day05.cpp -o day05 && ./day05
         ;;
 
-    06)
+    6)
         ruby day06-ruby/day06.rb
         ;;
 
-    07)
+    7)
         octave day07-octave/day07.m
         ;;
 
-    08)
+    8)
         python day08-python/day08.py
         ;;
 
-    09)
+    9)
         erlc day09-erlang/day09.erl && erl -noshell -s day09 main -s init stop
         ;;
 
