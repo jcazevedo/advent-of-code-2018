@@ -97,6 +97,10 @@ case "$1" in
         javac day24-java/day24.java -d . && java day24
         ;;
 
+    25)
+        clj day25-clojure/day25.clj
+        ;;
+
     *)
         echo "Unknown or unavailable day"
         exit 1
