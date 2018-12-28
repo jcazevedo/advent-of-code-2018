@@ -26,7 +26,7 @@ Some "rules" I set up for myself before starting solving the problems:
 - **Day 3: No Matter How You Slice It** (*Lua*): [problem statement](https://adventofcode.com/2018/day/3) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day03-lua/day03.lua)
 - **Day 4: Repose Record** (*Rust*): [problem statement](https://adventofcode.com/2018/day/4) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day04-rust/day04.rs)
 - **Day 5: Alchemical Reduction** (*C++*): [problem statement](https://adventofcode.com/2018/day/5) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day05-c++/day05.cpp)
-- **Day 6: Chronal Coordinates** (*Ruby**): [problem statement](https://adventofcode.com/2018/day/6) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day06-ruby/day06.rb)
+- **Day 6: Chronal Coordinates** (*Ruby*): [problem statement](https://adventofcode.com/2018/day/6) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day06-ruby/day06.rb)
 - **Day 7: The Sum of Its Parts** (*Octave*): [problem statement](https://adventofcode.com/2018/day/7) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day07-octave/day07.m)
 - **Day 8: Memory Maneuver** (*Python*): [problem statement](https://adventofcode.com/2018/day/8) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day08-python/day08.py)
 - **Day 9: Marble Mania** (*Erlang*): [problem statement](https://adventofcode.com/2018/day/9) / [solution](https://github.com/jcazevedo/advent-of-code-2018/tree/master/day09-erlang/day09.erl)
