@@ -12,11 +12,12 @@ Some "rules" I set up for myself before starting solving the problems:
 - The language for each day is assigned before looking at the problem statement.
 - The languages to be used in each day are the following, in order: Idris,
   Prolog, Lua, Rust, C++, Ruby, Octave, Python, Erlang, R, OCaml, Dart, PHP,
-  Elixir, Pony, Scala, Swift, Haskell, Go, Nim, Kotlin, TypeScript, Perl, Java,
-  Clojure
+  Elixir, Pony, Scala, Swift, Haskell, Go, Nim, Kotlin, TypeScript, Perl, Java
+  and Clojure.
 - The solutions should read the input from a predefined file (named
   `<day>.input`) and write the solution to the standard output.
-- The solutions should only take a few seconds to output the correct answer.
+- The solutions should take less than a minute to output the correct answer on
+  my machine.
 - Dependencies should be limited to each language's standard library.
 
 ## Problems
