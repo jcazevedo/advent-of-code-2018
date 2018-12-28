@@ -49,7 +49,7 @@ Some "rules" I set up for myself before starting solving the problems:
 
 ## Running
 
-You can run a solution by typing the following, replacing <X> with the day of
+You can run a solution by typing the following, replacing `<X>` with the day of
 the desired problem:
 
 ```
