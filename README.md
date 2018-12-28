@@ -10,35 +10,14 @@ different programming language.
 Some "rules" I set up for myself before starting solving the problems:
 
 - The language for each day is assigned before looking at the problem statement.
-- The languages to be used in each day are the following:
-  1. Idris
-  2. Prolog
-  3. Lua
-  4. Rust
-  5. C++
-  6. Ruby
-  7. Octave
-  8. Python
-  9. Erlang
-  10. R
-  11. OCaml
-  12. Dart
-  13. PHP
-  14. Elixir
-  15. Pony
-  16. Scala
-  17. Swift
-  18. Haskell
-  19. Go
-  20. Nim
-  21. Kotlin
-  22. TypeScript
-  23. Perl
-  24. Java
-  25. Clojure
+- The languages to be used in each day are the following, in order: Idris,
+  Prolog, Lua, Rust, C++, Ruby, Octave, Python, Erlang, R, OCaml, Dart, PHP,
+  Elixir, Pony, Scala, Swift, Haskell, Go, Nim, Kotlin, TypeScript, Perl, Java,
+  Clojure
 - The solutions should read the input from a predefined file (named
   `<day>.input`) and write the solution to the standard output.
 - The solutions should only take a few seconds to output the correct answer.
+- Dependencies should be limited to each language's standard library.
 
 ## Problems
 
